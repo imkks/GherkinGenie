@@ -1,60 +1,86 @@
-GherkinGenie: Robust UI-to-Test Automation
+# GherkinGenie: Robust UI-to-Test Automation  
+### *Capstone Project — Software Engineering Productivity Track*
 
-Capstone Project: Software Engineering Productivity Track
+---
 
-📖 Project Overview
+## 📖 Project Overview
 
-GherkinGenie is an autonomous Sequential Multi-Agent System designed to accelerate the QA process. It takes a raw screenshot of a web interface (e.g., a login screen, dashboard) and generates a high-quality, industry-standard Gherkin feature file.
+**GherkinGenie** is an autonomous **Sequential Multi-Agent System** designed to accelerate the QA process by converting raw UI screenshots (e.g., login screens, dashboards) into high-quality, industry-standard **Gherkin feature files**.
 
-The system moves beyond simple OCR by using a "Chain of Thought" architecture where different agents handle specific concerns: Vision, Strategy, Syntax, and Quality Assurance.
+Unlike simple OCR tools, GherkinGenie uses a **Chain-of-Thought Multi-Agent Architecture** where each agent performs a specialized reasoning step: Vision → Strategy → Syntax → Quality Review.
 
-🏗️ Multi-Agent Architecture
+---
 
-This project utilizes 4 Sequential Agents:
+## 🏗️ Multi-Agent Architecture
 
-👁️ Vision Agent (Multimodal): Uses Gemini 1.5 Flash Vision capabilities to extract semantic meaning from pixels (Inputs, Buttons, Headers).
+The system uses **4 sequential agents**:
 
-📐 Architect Agent (Reasoning): Analyzes the extracted elements to formulate a robust Test Strategy (Happy Paths, Edge Cases, Security Checks).
+### 👁️ Vision Agent (Multimodal)
+- Uses **Gemini 1.5 Flash Vision** for pixel-level semantic extraction  
+- Identifies UI elements such as Inputs, Buttons, Labels, Headers
 
-🥒 Gherkin Agent (Syntax): Translates the natural language strategy into strict, syntactically correct Gherkin (Given/When/Then).
+### 📐 Architect Agent (Reasoning)
+- Interprets UI components  
+- Generates a comprehensive **Test Strategy**, including:  
+  - Happy paths  
+  - Edge cases  
+  - Security and validation checks
 
-🛡️ Reviewer Agent (Gatekeeper & Tools): specific agent equipped with a Custom Tool. It reviews the code and autonomously saves the .feature file to the local disk.
+### 🥒 Gherkin Agent (Syntax)
+- Converts the natural-language test strategy into fully compliant **Gherkin syntax**  
+- Ensures `Given / When / Then` structure is preserved
 
-🚀 Key Concepts Demonstrated
+### 🛡️ Reviewer Agent (Gatekeeper + Tools)
+- Performs validation and final quality checks  
+- Equipped with a **custom tool**: `save_feature_file`  
+- Automatically writes the `.feature` file to disk using LLM function calling
 
-Sequential Multi-Agent System: A clear separation of concerns where the output of one agent becomes the context for the next.
+---
 
-Custom Tools: The Reviewer Agent is equipped with a specific python function save_feature_file that it invokes via the LLM's function calling capability.
+## 🚀 Key Concepts Demonstrated
 
-Observability: A custom AgentLogger class traces the execution flow and visually renders the "hand-off" of data between agents in the terminal.
+- **Sequential Multi-Agent Orchestration**  
+  Output of one agent becomes context for the next.
 
-🛠️ Installation & Usage
+- **LLM Function Calling + Custom Tools**  
+  The reviewer agent invokes Python functions autonomously to save files.
 
-Clone the repo
+- **Observability & Logging**  
+  A custom `AgentLogger` visualizes agent-to-agent handoff and the reasoning chain.
 
-Install dependencies:
+---
 
+## 🛠️ Installation & Usage
+
+### 1. Clone the Repository
+```bash
+git clone <repo_url>
+cd GherkinGenie
+```
+
+### 2. Install dependencies:
+```
 pip install -r requirements.txt
+```
 
-
-Set API Key:
+### 3. Set API Key:
 Create a .env file:
-
+```
 GEMINI_API_KEY=your_key_here
+```
 
-
-Run the Pipeline:
+### 4. Run the Pipeline:
 Provide a path to a screenshot (e.g., login.png).
-
+```
 python main.py --image login.png
+```
 
+## 📝 Example Output
 
-📝 Example Output
+### Input: A screenshot of a standard Login Page.
 
-Input: A screenshot of a standard Login Page.
-
-Generated Output (output/login_tests.feature):
-
+### Generated Output (output/login_tests.feature):
+```
 Feature: User Authentication
 
   Background:
@@ -71,3 +97,24 @@ Feature: User Authentication
     And clicks the "Sign In" button
     Then the system should display a generic error message
     And access should be denied
+```
+## 📦 Folder Structure
+```
+GherkinGenie/
+├── agents/
+│   ├── vision_agent.py
+│   ├── architect_agent.py
+│   ├── gherkin_agent.py
+│   └── reviewer_agent.py
+├── tools/
+│   └── save_feature_file.py
+├── logs/
+│   └── agent_logger.py
+├── output/
+├── main.py
+├── requirements.txt
+└── .env
+```
+## 📄 License
+
+MIT License
