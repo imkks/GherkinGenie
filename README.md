@@ -101,18 +101,15 @@ Feature: User Authentication
 ## 📦 Folder Structure
 ```
 GherkinGenie/
-├── agents/
-│   ├── vision_agent.py
-│   ├── architect_agent.py
-│   ├── gherkin_agent.py
-│   └── reviewer_agent.py
-├── tools/
-│   └── save_feature_file.py
-├── logs/
-│   └── agent_logger.py
+│  
+├── src/
+│   └── agents.py
+│   └── tools.py
+│   └──utils.py
 ├── output/
 ├── main.py
 ├── requirements.txt
+├── README.md
 └── .env
 ```
 ## 📄 License
